@@ -3,7 +3,7 @@ import { prop, pipe, applySpec, concat, always, ifElse, isNil } from 'ramda';
 import { fetch } from '../utils';
 import { API_KEY } from './constants';
 
-const makeUrl = (page) => `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-GB&page=${page}`;
+const makeUrl = (searchKey, page) => `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${encodeURI(searchKey)}&page=${page}&include_adult=false`;
 
 const getListFromResult = result => prop('results', result);
 const getTotalPagesFromResult = result => prop('total_pages', result);
@@ -28,8 +28,8 @@ const formatMovie = movie => pipe(applySpec({
 
 }))(movie);
 
-export default async () => {
-    const result = await fetch(makeUrl(1));
+export default async (searchKey) => {
+    const result = await fetch(makeUrl(searchKey, 1));
     const totalPages = getTotalPagesFromResult(result);
     const pageOne = getListFromResult(result);
 
