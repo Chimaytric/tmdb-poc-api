@@ -4,15 +4,6 @@ import { getGenres, getMovies, getSearch } from './resolvers';
 
 const router = express.Router();
 
-router.route('/movies')
-    .get(async (req, res) => {
-        console.log('Request to get movies recieved');
-        const movies = await getMovies();
-        console.log('success');
-
-        res.json(movies);
-    });
-
 router.route('/genres')
     .get(async (req, res) => {
         console.log('Request to get genres recieved');
@@ -27,7 +18,7 @@ router.route('/search/:searchKey')
         const searchKey = req.params.searchKey;
         console.log(`Request to get search "${searchKey}" recieved`);
         const searchresult = await getSearch(searchKey);
-        console.log('success');
+        console.log(`success (${searchresult.length} results)`);
 
         res.json(searchresult);
     });
