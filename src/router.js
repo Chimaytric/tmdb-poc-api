@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getGenres, getMovies, getSearch } from './resolvers';
+import { getGenres, getSearch } from './resolvers';
 
 const router = express.Router();
 
